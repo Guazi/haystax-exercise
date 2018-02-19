@@ -1,0 +1,48 @@
+<!-- Render the form input until we have a valid submission, then render the confirmation as forminfo -->
+
+<div *ngIf="!email; else forminfo">
+  <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+    <div class="form-container">
+      <div class="row columns">
+
+        <h1>Haystax Coding Exercise #9</h1>
+
+
+        
+        <label>Email
+          <input type="email" formControlName="email">
+        </label>
+        <!-- Alert the user that email is a required field -->
+        <div class="alert" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">{{ titleAlert }}</div>
+          <!-- Alert the user email is invalid.  It doesn't pass validation and user has already tried to enter a value (hence dirty) -->
+        <div class="alert" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].dirty && rForm.controls['email'].touched">{{ emailAlert }}</div>
+
+        <label>Password
+          <input type="password" formControlName="password">
+        </label>
+
+        <!-- Alert the user that password is a required field -->
+        <div class="alert" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">{{ titleAlert }}</div>
+        <!-- Alert the user password is invalid.  It doesn't pass validation and user has already tried to enter a value (hence dirty) -->
+        <div class="alert" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].dirty && rForm.controls['password'].touched">Password must be between 8 and 20 characters</div>
+
+        <label>(Optional) Phone
+          <input type="text" formControlName="phone">
+        </label>
+        <!-- Alert the user phone is invalid.  It doesn't pass validation and user has already tried to enter a value (hence dirty) -->
+        <div class="alert" *ngIf="!rForm.controls['phone'].valid && rForm.controls['phone'].touched">{{ phoneAlert }}</div>
+
+        <input type="submit" class="button expanded" value="Submit Form" [disabled]="!rForm.valid">
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #forminfo>
+  <div class="form-container">
+    <div class="row columns">
+        <h1>Thanks for signing up {{ email }}</h1>
+
+    </div>
+  </div>
+</ng-template>
